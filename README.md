@@ -41,7 +41,12 @@ Another usage is to use it in your websites / web applications. For instance, wi
 ```python
 import vizhash.vizhash
 
-def vizhash(request, string, size=128):
+def vizhash_view(request, string, size=None):
+    try:
+        size = int(size)
+    except TypeError:
+        size = 128
+
     image = vizhash.vizhash.draw(string, (size, size))
     response = HttpResponse(content_type="image/png")
     image.save(response, 'PNG')
@@ -54,7 +59,7 @@ and in `urls.py`:
 ```python
 urlpatterns = patterns(
     […]
-    url(r'^vizhash/(?P<string>\w+)/((?P<size>\d+)/)?$', views.vizhash, name='vizhash'),
+    url(r'^vizhash/(?P<string>\w+)/((?P<size>\d+)/)?$', views.vizhash_view, name='vizhash'),
     […]
 )
 ```
