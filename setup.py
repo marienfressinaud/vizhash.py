@@ -23,4 +23,7 @@ setup(
 		"License :: OSI Approved :: zlib/libpng License",
 		"Natural Language :: English",
 	],
+	install_requires=[
+		'pillow',
+	],
 )
